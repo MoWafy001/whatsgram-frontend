@@ -14,14 +14,18 @@ export default function Start() {
 
   const [level, setLevel] = useState(0)
 
+  const nextLevel = () => {
+    setLevel(level + 1);
+  }
+
   return <div className="container">
 
     {level === 0 &&
-      <RegisterationChoice />
+      <RegisterationChoice next={nextLevel} />
     }
 
     {level === 1 &&
-      <ChoosingPlatforms/>
+      <ChoosingPlatforms />
     }
   </div>;
 }
