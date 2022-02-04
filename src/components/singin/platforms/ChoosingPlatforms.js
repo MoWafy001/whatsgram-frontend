@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import LoginToWhatsapp from "./LoginToWhatsapp";
 
-export default function ChoosingPlatforms({io}) {
+export default function ChoosingPlatforms() {
 
-  const [platform] = useState(null);
+  const [platform, setPlatform] = useState(null);
 
 
   return <div>
     <h1>Login to the app</h1>
-    <span className="btn" onClick={()=>{io.emit('whatsapp-login', localStorage.getItem('username'))}}>whatsapp</span>
-    <span className="btn">telegram</span>
+    <span className="btn" onClick={()=>{setPlatform('whatsapp')}}>whatsapp</span>
+    <span className="btn" onClick={()=>{setPlatform(null)}}>telegram</span>
 
-    {platform === "whatsapp" && <h1>login to whatsapp</h1>}
+    {platform === "whatsapp" && <LoginToWhatsapp/>}
     {platform === "telegram" && <h1>login to telegram</h1>}
 
     <span className="btn">start the app</span>
