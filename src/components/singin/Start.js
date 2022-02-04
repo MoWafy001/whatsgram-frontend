@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChoosingPlatforms from "./platforms/ChoosingPlatforms";
 import RegisterationChoice from "./registeration/RegisterationChoice";
+import { Transition, animated } from 'react-spring';
 
 import "./start.css"
 /*
@@ -10,7 +11,7 @@ import "./start.css"
 4. sign in to telegram
 5. redirect to the main app
 */
-export default function Start() {
+export default function Start({ io }) {
 
   const [level, setLevel] = useState(0)
 
@@ -20,12 +21,29 @@ export default function Start() {
 
   return <div className="container">
 
-    {level === 0 &&
-      <RegisterationChoice next={nextLevel} />
-    }
+    <Transition
+      items={level}
+      from={{ opacity: 0, transY: -1 }}
+      enter={{ opacity: 1, transY: 0 }}
+      leave={{ opacity: 0, transY: 1, position: 'absolute' }}
+      config={{ duration: 800 }}
+    >
 
-    {level === 1 &&
-      <ChoosingPlatforms />
-    }
+      {
+        (props, level) => {
+          if (level === 0) return <animated.div style={{ ...props, transform: props.transY.to(v => `translateY(${v * 100}%)`) }}>
+            <RegisterationChoice next={nextLevel} />
+          </animated.div>
+
+          if (level === 1) return <animated.div style={{ ...props, transform: props.transY.to(v => `translateY(${v * 100}%)`) }}>
+            <ChoosingPlatforms io={io} />
+          </animated.div>
+        }
+      }
+
+    </Transition>
+
+
+
   </div>;
 }

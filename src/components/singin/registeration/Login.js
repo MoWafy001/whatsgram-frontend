@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
 export default function Login({ next }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [input_username, setUsername] = useState('')
+  const [input_password, setPassword] = useState('')
 
   const login = async e => {
     e.preventDefault();
 
-    if (!username || !password) return
+    if (!input_username || !input_password) return
 
     const request_data = {
-      username: username,
-      pwd: password
+      username: input_username,
+      pwd: input_password
     }
 
     const response = await fetch('http://127.0.0.1:5000/api/auth/login', {
@@ -22,9 +22,15 @@ export default function Login({ next }) {
       body: JSON.stringify(request_data)
     })
 
-    if (!response.ok) return
+    if (!response.ok) return console.log(await response.json());
 
-    console.log(await response.json());
+    const { username, access_token, refresh_token } = await response.json();
+
+    localStorage.setItem('username', username);
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('refresh_token', refresh_token);
+
+
     next();
 
   }

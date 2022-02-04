@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function CreateAccount({ next }) {
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [input_username, setUsername] = useState('')
+  const [input_password, setPassword] = useState('')
+  const [input_passwordRepeat, setPasswordRepeat] = useState('')
 
   const createAccount = async e => {
     e.preventDefault();
 
-    if (!username || !password || !passwordRepeat) return
-    if (password !== passwordRepeat) return
+    if (!input_username || !input_password || !input_passwordRepeat) return
+    if (input_password !== input_passwordRepeat) return
 
     const request_data = {
-      username: username,
-      pwd: password
+      username: input_username,
+      pwd: input_password
     }
 
     const response = await fetch('http://127.0.0.1:5000/api/auth/register', {
@@ -25,16 +25,17 @@ export default function CreateAccount({ next }) {
       body: JSON.stringify(request_data)
     })
 
-    if (!response.ok) return
+    if (!response.ok) return console.log(await response.json());
 
-    console.log(await response.json());
+    const { username, access_token, refresh_token } = await response.json();
+
+    localStorage.setItem('username', username);
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('refresh_token', refresh_token);
+
     next();
 
   }
-
-  useEffect(() => {
-    console.log('mount it!');
-  }, []);
 
 
   return <form onSubmit={createAccount} className="sub-container">
