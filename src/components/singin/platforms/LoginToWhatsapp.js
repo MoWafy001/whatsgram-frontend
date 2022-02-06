@@ -2,15 +2,13 @@ import { useState, useEffect } from 'react';
 import socketIOClient from "socket.io-client";
 import QRCode from "react-qr-code";
 
-export default function LoginToWhatsapp() {
+export default function LoginToWhatsapp({ ready }) {
 
-  const [, setSocket] = useState(null);
   const [title, setTitle] = useState('Trying to login...')
   const [qr, setQr] = useState(null)
 
   useEffect(() => {
     const socket = socketIOClient('http://127.0.0.1:5000')
-    setSocket(socket)
 
     socket.on('connect', () => {
       console.log('connected');
@@ -26,7 +24,8 @@ export default function LoginToWhatsapp() {
     socket.on('whatsapp-ready', msg => {
       console.log(msg);
       setQr(null)
-      setTitle('You are ready!');
+      setTitle('Whatsapp is ready!');
+      ready('whatsapp');
     })
 
     return () => { socket.disconnect(); console.log('disconnected'); }

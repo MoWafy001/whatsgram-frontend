@@ -11,7 +11,7 @@ import "./start.css"
 4. sign in to telegram
 5. redirect to the main app
 */
-export default function Start({ io }) {
+export default function Start({ handelLogin, addApp}) {
 
   const [level, setLevel] = useState(0)
 
@@ -36,7 +36,7 @@ export default function Start({ io }) {
           </animated.div>
 
           if (level === 1) return <animated.div style={{ ...props, transform: props.transY.to(v => `translateY(${v * 100}%)`) }}>
-            <ChoosingPlatforms io={io} />
+            <ChoosingPlatforms handelLogin={handelLogin} addApp={addApp} />
           </animated.div>
         }
       }
