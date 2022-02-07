@@ -9,9 +9,22 @@ export default function Contacts() {
       <Contact />
       <Contact />
       <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
+      <Contact />
   </div>;
 }
 
 const component_style = {
     height: "100%",
+    overflowY: 'auto',
+    scrollbarWidth: 'thin'
 }

@@ -5,7 +5,7 @@ import Main from './components/main/Main';
 
 function App() {
 
-  const [loggedIn, login] = useState(false)
+  const [loggedIn, login] = useState(true)
   const [availableApps, setAvailableApps] = useState([])
 
   const addApp = app => {

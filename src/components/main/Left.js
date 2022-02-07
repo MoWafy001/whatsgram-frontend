@@ -10,9 +10,12 @@ export default function Left() {
 }
 
 const component_style = {
-    width:"30%",
+    width:"100%",
+    minWidth: '15rem',
+    maxWidth: '30%',
     height: '100%',
     background: '#111',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    borderRight: '1px solid #fff1',
 }
