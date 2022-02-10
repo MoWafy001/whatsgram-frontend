@@ -5,7 +5,8 @@ import Main from './components/main/Main';
 
 function App() {
 
-  const [loggedIn, login] = useState(false)
+  const [io, setIo] = useState(null)
+  const [loggedIn, login] = useState(true)
   const [availableApps, setAvailableApps] = useState([])
 
   const addApp = app => {
@@ -14,8 +15,8 @@ function App() {
 
   return (
     <>
-      {!loggedIn && <Start handelLogin={login} addApp={addApp}/>}
-      {loggedIn && <Main/>}
+      {!loggedIn && <Start handelLogin={login} addApp={addApp} io={io} setIo={setIo}/>}
+      {loggedIn && <Main io={io}/>}
     </>
   );
 }

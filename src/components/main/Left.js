@@ -2,10 +2,10 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import Contacts from './Contacts';
 
-export default function Left({ chats }) {
+export default function Left({ chats, socket }) {
   return <div style={component_style}>
     <SearchBar />
-    <Contacts chats={chats} />
+    <Contacts chats={chats} socket={socket} />
   </div>;
 }
 

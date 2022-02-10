@@ -1,11 +1,10 @@
 import React from 'react';
 import Contact from './Contact';
 
-export default function Contacts({ chats }) {
-  console.log(chats);
+export default function Contacts({ chats, socket }) {
   return <div style={component_style}>
     {chats.map(chat =>
-      <Contact key={chat.name} data={chat} />
+      <Contact key={chat.id._serialized} data={chat} socket={socket} />
     )}
   </div>;
 }
