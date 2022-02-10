@@ -44,7 +44,7 @@ export default function Main({ io }) {
         socket.off('wa chats sent')
       } else {
 
-        socket.emit('wa get chats', { offset: c.length, limit: 10 })
+        socket.emit('wa get chats', { offset: c.length, limit: 20 })
       }
     })
 
@@ -54,9 +54,13 @@ export default function Main({ io }) {
     })
   }, [socket])
 
+  useEffect(() => {
+    document.querySelector('.chatbox').scroll(0, document.querySelector('.chatbox').scrollHeight)
+  }, [chatMessages])
+
 
   return <div className='main'>
     <Left chats={chats} socket={socket} />
-    <Right messages={chatMessages} />
+    <Right chatMessages={chatMessages} />
   </div>;
 }

@@ -1,27 +1,11 @@
 import React from 'react';
 import Message from './Message';
 
-export default function Chat() {
-  return <div style={component_style}>
-    <Message me={true} />
-    <Message />
-    <Message me={true} />
-    <Message />
-    <Message me={true} />
-    <Message me={true} />
-    <Message me={true} />
-    <Message />
-    <Message me={true} />
-    <Message />
-    <Message />
-    <Message />
-    <Message me={true} />
-    <Message />
-    <Message me={true} />
-    <Message />
-    <Message me={true} />
-    <Message />
-
+export default function Chat({ chatMessages }) {
+  return <div style={component_style} className="chatbox">
+    {chatMessages.map(message =>
+      <Message key={message.id._serialized} message={message} />
+    )}
   </div>;
 }
 
@@ -31,5 +15,5 @@ const component_style = {
   flexDirection: 'column',
   overflowY: 'auto',
   padding: '1rem',
-  scrollbarWidth:'thin',
+  scrollbarWidth: 'thin',
 }
