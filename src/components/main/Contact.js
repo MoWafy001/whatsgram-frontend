@@ -1,5 +1,5 @@
 
-export default function Contact({ data, socket }) {
+export default function Contact({ data, socket, currentChat }) {
   const wa_d_user = 'wa-d-user.jpeg';
   const wa_d_group = 'wa-d-group.png';
 
@@ -7,7 +7,8 @@ export default function Contact({ data, socket }) {
     data.last_message.body = data.last_message.body.length > 17 ? data.last_message.body.slice(0, 17) + "..." : data.last_message.body
 
   const handel_chat_clicked = () => {
-    socket.emit('wa chat selected', { chat_id: data.id._serialized, limit:100 })
+    if (data.id._serialized !== currentChat.currentChat)
+      socket.emit('wa chat selected', { chat_id: data.id._serialized, limit: 100 })
   }
 
   return <div className='contact' onClick={handel_chat_clicked}>

@@ -3,11 +3,11 @@ import ContactInfo from './ContactInfo';
 import Chat from './Chat';
 import TextBox from './TextBox';
 
-export default function Right({ chatMessages }) {
+export default function Right({ chatMessages, currentContact }) {
 
 
   return <div style={component_style}>
-    <ContactInfo />
+    {currentContact && <ContactInfo currentContact={currentContact} />}
     <Chat chatMessages={chatMessages} />
     <TextBox />
   </div>;

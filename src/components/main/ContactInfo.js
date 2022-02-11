@@ -1,11 +1,15 @@
 import React from 'react';
 
-export default function ContactInfo() {
+export default function ContactInfo({currentContact}) {
+  const wa_d_user = 'wa-d-user.jpeg';
+  const wa_d_group = 'wa-d-group.png';
+
+  console.log(currentContact);
   return <div style={component_style}>
-    <img style={img_style} src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fget.pxhere.com%2Fphoto%2Fman-person-people-white-boy-cute-male-portrait-young-professional-profession-lifestyle-smiling-smile-cheerful-fun-happy-happiness-glasses-handsome-865531.jpg&f=1&nofb=1" alt="person" />
+    <img style={img_style} src={currentContact.img || (currentContact.isGroup ? wa_d_group : wa_d_user)} alt="person" />
     <div className='contact-header'>
-      <h2>Contact Name</h2>
-      <span className='desc'>online</span>
+      <h2>{currentContact.name === undefined? currentContact.pushname : currentContact.name}</h2>
+      <span className='desc'></span>
     </div>
   </div>;
 }

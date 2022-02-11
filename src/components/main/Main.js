@@ -12,6 +12,9 @@ export default function Main({ io }) {
   const [chats, setChats] = useState([])
   const [socket, setSocket] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
+  const [currentChat, setCurrentChat] = useState(null)
+  const [currentContact, setCurrentContact] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (socket === null) {
@@ -42,15 +45,18 @@ export default function Main({ io }) {
       setChats(c)
       if (newChats.length === 0) {
         socket.off('wa chats sent')
+        setLoading(false)
       } else {
 
         socket.emit('wa get chats', { offset: c.length, limit: 20 })
       }
     })
 
-    socket.on('wa chat messages', messages => {
-      setChatMessages(messages)
-      console.log(messages);
+    socket.on('wa chat messages', data => {
+      setChatMessages(data.messages)
+      console.log(data.messages);
+      setCurrentChat(data.chat_id)
+      setCurrentContact(data.contact)
     })
   }, [socket])
 
@@ -60,7 +66,10 @@ export default function Main({ io }) {
 
 
   return <div className='main'>
-    <Left chats={chats} socket={socket} />
-    <Right chatMessages={chatMessages} />
+    {loading && <div className="loading">
+      <h2>Loading...</h2>
+    </div> }
+    <Left chats={chats} socket={socket} currentChat={{currentChat, setCurrentChat}} />
+    <Right chatMessages={chatMessages} currentChat={currentChat} currentContact={currentContact} />
   </div>;
 }

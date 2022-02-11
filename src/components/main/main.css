@@ -6,6 +6,16 @@
     max-width: 100vw;
 }
 
+.loading{
+    position: fixed;
+    inset: 0;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #aaa;
+}
+
 
 .contact{
     display: flex;
