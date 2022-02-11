@@ -1,11 +1,11 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import Contacts from './Contacts';
+import Chats from './Chats';
 
-export default function Left({ chats, socket, currentChat }) {
+export default function Left({chats, setCurrentChat}) {
   return <div style={component_style}>
     <SearchBar />
-    <Contacts chats={chats} socket={socket} currentChat={currentChat} />
+    <Chats chats={chats} setCurrentChat={setCurrentChat}/>
   </div>;
 }
 

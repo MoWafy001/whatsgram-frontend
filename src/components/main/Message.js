@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default function Message({message}) {
-    return <div style={{...component_style, marginLeft: message.fromMe?'auto':'unset', background: message.fromMe?'#777':'#fff'}}>
-        {message.body}
+export default function Message() {
+    const fromMe=true;
+    return <div style={{...component_style, marginLeft: fromMe?'auto':'unset', background: fromMe?'#777':'#fff'}}>
+        message
     </div>;
 }
 

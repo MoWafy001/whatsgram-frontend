@@ -1,14 +1,12 @@
-import { useEffect } from 'react';
 import ContactInfo from './ContactInfo';
-import Chat from './Chat';
+import ChatBox from './ChatBox';
 import TextBox from './TextBox';
 
-export default function Right({ chatMessages, currentContact }) {
-
+export default function Right({currentChat}) {
 
   return <div style={component_style}>
-    {currentContact && <ContactInfo currentContact={currentContact} />}
-    <Chat chatMessages={chatMessages} />
+    <ContactInfo currentChat={currentChat} />
+    <ChatBox/>
     <TextBox />
   </div>;
 }

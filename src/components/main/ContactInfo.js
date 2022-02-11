@@ -1,14 +1,15 @@
 import React from 'react';
 
-export default function ContactInfo({currentContact}) {
+export default function ContactInfo({currentChat}) {
   const wa_d_user = 'wa-d-user.jpeg';
   const wa_d_group = 'wa-d-group.png';
 
-  console.log(currentContact);
+  const name = currentChat.chat ? currentChat.chat.name : ""
+
   return <div style={component_style}>
-    <img style={img_style} src={currentContact.img || (currentContact.isGroup ? wa_d_group : wa_d_user)} alt="person" />
+    <img style={img_style} src={currentChat.profile_picture_url || (currentChat.isGroup ? wa_d_group : wa_d_user)} alt="person" />
     <div className='contact-header'>
-      <h2>{currentContact.name === undefined? currentContact.pushname : currentContact.name}</h2>
+      <h2>{name}</h2>
       <span className='desc'></span>
     </div>
   </div>;
