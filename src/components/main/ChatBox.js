@@ -1,9 +1,9 @@
 import React from 'react';
 import Message from './Message';
 
-export default function Chat() {
+export default function Chat({currentMessages}) {
   return <div style={component_style} className="chatbox">
-    <Message />
+    {currentMessages.map(message => <Message key={message.id._serialized} data={message}/>)}
   </div>;
 }
 
