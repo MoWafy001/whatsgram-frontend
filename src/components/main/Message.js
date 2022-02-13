@@ -6,11 +6,19 @@ export default function Message({ data }) {
         ...component_style,
         marginLeft: data.fromMe ? 'auto' : 'unset',
         textAlign: data.fromMe ? 'right' : 'left',
-        background: ['sticker', 'image'].includes(data.type) ? '#0000' : "#fff",
+        background: data.hasMedia ? '#0000' : (data.type==='revoked'?'#555':"#fff"),
     }}>
         {['sticker', 'image'].includes(data.type) && <img src={`data:image/png;base64,${data.media.data}`} style={{ width: '100%' }} alt="sticker" />}
+        {data.type === 'ptt' && 
+        <audio controls="controls" autobuffer="autobuffer">
+            <source src={`data:audio/wav;base64,${data.media.data}`} />
+        </audio>
+        }
         {data.type === 'chat' && <div style={{textAlign:'left'}}>
             {data.body}
+        </div>}
+        {data.type === 'revoked' && <div style={{textAlign:'left'}}>
+            This message was deleted
         </div>}
     </div>;
 }
