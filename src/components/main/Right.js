@@ -2,12 +2,12 @@ import ContactInfo from './ContactInfo';
 import ChatBox from './ChatBox';
 import TextBox from './TextBox';
 
-export default function Right({currentChat, currentMessages}) {
+export default function Right({currentChat, currentMessages, send}) {
 
   return <div style={component_style}>
     <ContactInfo currentChat={currentChat} />
     <ChatBox currentMessages={currentMessages}/>
-    <TextBox />
+    <TextBox send={send} />
   </div>;
 }
 

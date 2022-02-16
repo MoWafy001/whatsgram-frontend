@@ -5,12 +5,25 @@ import {
   faMicrophone
 } from '@fortawesome/free-solid-svg-icons'
 
+import {useState} from 'react'
 
-export default function TextBox() {
+
+export default function TextBox({send}) {
+
+  const [inputText, setInputText] = useState('')
+
+  const handel_input_key_up = e => {
+    if(e.key !== 'Enter') return
+
+    console.log(inputText, 'sent');
+    send.sendText(inputText)
+    setInputText('')
+  }
+
   return <div style={component_style}>
     <span className="input-icon"><FontAwesomeIcon icon={faSmileWink} /></span>
     <span className="input-icon"><FontAwesomeIcon icon={faFileUpload} /></span>
-    <input type="text" style={input_style} placeholder="type here" />
+    <input onKeyUp={handel_input_key_up} value={inputText} onChange={e => setInputText(e.target.value)} type="text" style={input_style} placeholder="type here" />
     <span className="input-icon"><FontAwesomeIcon icon={faMicrophone} /></span>
   </div>;
 }

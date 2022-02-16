@@ -15,7 +15,6 @@ export default function Main({ io }) {
   const [currentChat, setCurrentChat] = useState({
     chat: null,
     profile_picture_url: '',
-    messages: []
   })
   const [currentMessages, setCurrentMessages] = useState([])
 
@@ -41,11 +40,14 @@ export default function Main({ io }) {
     socket.emit('whatsapp-request-chat-messages', newState.chat.id._serialized)
   }
 
+  const sendText = text => {
+    socket.emit('whatsapp-send-text', { text, chat: currentChat.chat })
+  }
 
 
   return <div className='main'>
     <Left chats={chats} setCurrentChat={setNewCurrentChat} />
-    <Right currentChat={currentChat} currentMessages={currentMessages} />
+    <Right currentChat={currentChat} currentMessages={currentMessages} send={{ sendText }} />
   </div>;
 }
 
@@ -65,7 +67,6 @@ const handel_socket = (socket, setChats, setCurrentMessages, setCurrentChat) => 
   // when whatsapp is ready
   socket.on('whatsapp-ready', () => {
     console.log('ready');
-    console.log('ready');
     socket.emit('whatsapp-request-chats')
     console.log('requesting chats...');
   })
@@ -84,7 +85,7 @@ const handel_socket = (socket, setChats, setCurrentMessages, setCurrentChat) => 
   })
 
   // new message created
-  socket.on('whatsapp-message-create', ({message, chat}) => {
+  socket.on('whatsapp-message-create', ({ message, chat }) => {
     setChats(oldChats => {
       let c = oldChats.find(ch => ch.chat.id._serialized === chat.id._serialized)
       c.last_message = message
@@ -93,11 +94,14 @@ const handel_socket = (socket, setChats, setCurrentMessages, setCurrentChat) => 
       oldChats = [c, ...oldChats]
 
       setCurrentChat(oldChat => {
-        if(oldChat.chat.id._serialized !== chat.id._serialized) return oldChat
+        if (oldChat.chat.id._serialized !== chat.id._serialized) return oldChat
 
         console.log(message);
 
-        setCurrentMessages(oldMessages => [...oldMessages, message])
+        setCurrentMessages(oldMessages => {
+          if(oldMessages.includes(message)) return oldMessages
+          else return [...oldMessages, message]
+        })
         return oldChat
       })
 

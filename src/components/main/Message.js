@@ -4,8 +4,6 @@ export default function Message({ data }) {
 
     const cantBeloaded = ['sticker', 'image', 'audio', 'ptt'].includes(data.type) && !data.hasMedia;
 
-    console.log(data);
-
     return <div style={{
         ...component_style,
     }}>
