@@ -44,10 +44,14 @@ export default function Main({ io }) {
     socket.emit('whatsapp-send-text', { text, chat: currentChat.chat })
   }
 
+  const sendImage = img_data => {
+    socket.emit('whatsapp-send-image', { img_data, chat: currentChat.chat})
+  }
+
 
   return <div className='main'>
     <Left chats={chats} setCurrentChat={setNewCurrentChat} />
-    <Right currentChat={currentChat} currentMessages={currentMessages} send={{ sendText }} />
+    <Right currentChat={currentChat} currentMessages={currentMessages} send={{ sendText, sendImage }} />
   </div>;
 }
 
