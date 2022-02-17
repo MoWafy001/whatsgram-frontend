@@ -12,7 +12,7 @@ export default function LoginToWhatsapp({ ready, io, setIo }) {
     let ready_state = false
 
     if (io === null) {
-      socket = socketIOClient('http://127.0.0.1:5000')
+      socket = socketIOClient()
       setIo(socket)
     } else {
       socket = io

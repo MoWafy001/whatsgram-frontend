@@ -17,7 +17,7 @@ export default function CreateAccount({ next }) {
       pwd: input_password
     }
 
-    const response = await fetch('http://127.0.0.1:5000/api/auth/register', {
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
