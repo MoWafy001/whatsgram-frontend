@@ -11,8 +11,8 @@ export default function Left({chats, setCurrentChat}) {
 
 const component_style = {
   width: "100%",
-  minWidth: '15rem',
-  maxWidth: '30%',
+  minWidth: '25vw',
+  maxWidth: '25vw',
   height: '100%',
   background: '#111',
   display: 'flex',

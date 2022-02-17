@@ -12,9 +12,12 @@ export default function Right({currentChat, currentMessages, send}) {
 }
 
 const component_style = {
-  width: "100%",
+  position: 'relative',
   height: "100%",
+  width: '75vw',
   background: '#222',
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  margin: '0',
+  padding: '0',
 }
