@@ -28,6 +28,16 @@ export default function Main({ io }) {
   // after initalization
   useEffect(() => {
     if (socket === null) return
+
+    if (io === null || io === undefined) {
+      // initialize the whatsapp client
+      socket.emit('whatsapp-login', localStorage.getItem('username'))
+      console.log('trying to login...');
+    } else {
+      socket.emit('whatsapp-request-chats')
+      console.log('requesting chats...');
+    }
+
     handel_socket(socket, setChats, setCurrentMessages, setCurrentChat)
   }, [socket])
 
@@ -45,7 +55,7 @@ export default function Main({ io }) {
   }
 
   const sendImage = img_data => {
-    socket.emit('whatsapp-send-image', { img_data, chat: currentChat.chat})
+    socket.emit('whatsapp-send-image', { img_data, chat: currentChat.chat })
   }
 
 
@@ -64,9 +74,6 @@ export default function Main({ io }) {
 
 
 const handel_socket = (socket, setChats, setCurrentMessages, setCurrentChat) => {
-  // initialize the whatsapp client
-  socket.emit('whatsapp-login', localStorage.getItem('username'))
-  console.log('trying to login...');
 
   // when whatsapp is ready
   socket.on('whatsapp-ready', () => {
@@ -103,7 +110,7 @@ const handel_socket = (socket, setChats, setCurrentMessages, setCurrentChat) => 
         console.log(message);
 
         setCurrentMessages(oldMessages => {
-          if(oldMessages.includes(message)) return oldMessages
+          if (oldMessages.includes(message)) return oldMessages
           else return [...oldMessages, message]
         })
         return oldChat

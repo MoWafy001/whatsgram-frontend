@@ -29,8 +29,7 @@ export default function LoginToWhatsapp({ ready, io, setIo }) {
       setTitle('Scan the code')
       setQr(qr)
     })
-    socket.on('whatsapp-ready', msg => {
-      console.log(msg);
+    socket.on('whatsapp-ready', () => {
       setQr(null)
       setTitle('Whatsapp is ready!');
       ready('whatsapp');
